@@ -4,6 +4,7 @@ import 'package:flutter_study/demos/shop/goods_all_category_page.dart';
 import 'package:flutter_study/demos/shop/goods_list_page.dart';
 import 'package:flutter_study/demos/shop/goods_role_category_page.dart';
 import 'package:flutter_study/demos/shop/goods_sub_category_page.dart';
+import 'package:flutter_study/test/gzx_dropdown_menu_test_page.dart';
 import 'package:flutter_study/demos/shop/shop_Intro_page.dart';
 import 'package:flutter_study/demos/shop/shop_home_page.dart';
 import 'package:flutter_study/home_page.dart';
@@ -25,6 +26,7 @@ class Routes {
   static String goodsAllCategoryPage = '/goodsAllCategoryPage';
   static String goodsSubCategoryPage = '/goodsSubCategoryPage';
   static String goodsRoleCategoryPage = '/goodsRoleCategoryPage';
+  static String gzxDropDownMenuTestPage = '/gzxDropDownMenuTestPage';
 
 
 
@@ -60,6 +62,9 @@ class Routes {
         handlerFunc: (BuildContext? context, Map<String, List<String>> params) => const GoodsRoleCategoryPage()));
     router.define(goodsSubCategoryPage, handler: Handler(
         handlerFunc: (BuildContext? context, Map<String, List<String>> params) => const GoodsSubCategoryPage()));
+
+    router.define(gzxDropDownMenuTestPage, handler: Handler(
+        handlerFunc: (BuildContext? context, Map<String, List<String>> params) =>  GZXDropDownMenuTestPage()));
     ///由于需要真机调试暂时屏蔽
     // router.define(weixinPayPage, handler: Handler(
     //     handlerFunc: (BuildContext? context, Map<String, List<String>> params) => const WeXinPayPage()));

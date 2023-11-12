@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
+import 'package:flutter_study/common/utils/common_utils.dart';
 import 'package:flutter_study/common/widget/my_sliver_persistent_header.dart';
 import 'package:flutter_study/common/widget/navigation_bar.dart';
 import 'package:flutter_study/demos/shop/goods_list_page.dart';
@@ -130,6 +131,7 @@ class _ShopHomePageState extends State<ShopHomePage>
               child: InkWell(
                   onTap: () {
                     NavigatorUtils.push(context, Routes.shopIntroPage);
+                    // NavigatorUtils.push(context, Routes.gzxDropDownMenuTestPage);
                   },
                   child: Container(color: Colors.cyan)),
             ),
@@ -162,6 +164,7 @@ class _ShopHomePageState extends State<ShopHomePage>
           itemBuilder: (context, index) {
             return InkWell(
                 onTap: () {
+                  // CommonUtils.showPromptDialog(context, "弹窗", "aaaa");
                   if (index == 0) {
                     NavigatorUtils.push(context, Routes.goodsRoleCategoryPage);
                   } else if (index == 1) {
