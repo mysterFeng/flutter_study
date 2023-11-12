@@ -15,7 +15,8 @@ class _MyHomePageState extends State<MyHomePage> {
   Map<String, String> map = {
     '弹框dialog': Routes.dialogDemoPage,
     '微信支付': Routes.weixinPayPage,
-    '支付宝支付': Routes.aliPayPage
+    '支付宝支付': Routes.aliPayPage,
+    '商场首页':Routes.shopHomePage
   };
 
   @override

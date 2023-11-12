@@ -1,10 +1,14 @@
 import 'package:fluro/fluro.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_study/alipay/alipay_page.dart';
-import 'package:flutter_study/dialog/dialog_demo_page.dart';
-import 'package:flutter_study/home/home_page.dart';
-import 'package:flutter_study/wxpay/weixin_pay_page.dart';
+import 'package:flutter_study/demos/shop/goods_all_category_page.dart';
+import 'package:flutter_study/demos/shop/goods_list_page.dart';
+import 'package:flutter_study/demos/shop/goods_role_category_page.dart';
+import 'package:flutter_study/demos/shop/goods_sub_category_page.dart';
+import 'package:flutter_study/demos/shop/shop_Intro_page.dart';
+import 'package:flutter_study/demos/shop/shop_home_page.dart';
+import 'package:flutter_study/home_page.dart';
 
+import '../demos/dialog/dialog_demo_page.dart';
 import 'i_router.dart';
 import 'not_found_page.dart';
 
@@ -15,6 +19,14 @@ class Routes {
   static String dialogDemoPage = '/dialogDemoPage';
   static String weixinPayPage = '/weixinPayPage';
   static String aliPayPage = '/aliPayPage';
+  static String shopHomePage = '/shopHomePage';
+  static String goodsListPage = '/goodsListPage';
+  static String shopIntroPage = '/shopIntroPage';
+  static String goodsAllCategoryPage = '/goodsAllCategoryPage';
+  static String goodsSubCategoryPage = '/goodsSubCategoryPage';
+  static String goodsRoleCategoryPage = '/goodsRoleCategoryPage';
+
+
 
   static final List<IRouterProvider> _listRouter = [];
 
@@ -32,11 +44,27 @@ class Routes {
       handlerFunc: (BuildContext? context, Map<String, List<String>> params) => const MyHomePage(title: "首页")));
     router.define(dialogDemoPage, handler: Handler(
         handlerFunc: (BuildContext? context, Map<String, List<String>> params) => const DialogDemoPage()));
+    router.define(shopHomePage, handler: Handler(
+        handlerFunc: (BuildContext? context, Map<String, List<String>> params) => const ShopHomePage()));
+    router.define(shopHomePage, handler: Handler(
+        handlerFunc: (BuildContext? context, Map<String, List<String>> params) {
+          final String type = params['type']?.first ?? '';
+          return GoodsListPage(type: type);
+        }));
+    router.define(shopIntroPage, handler: Handler(
+        handlerFunc: (BuildContext? context, Map<String, List<String>> params) => const ShopIntroPage()));
 
-    router.define(weixinPayPage, handler: Handler(
-        handlerFunc: (BuildContext? context, Map<String, List<String>> params) => const WeXinPayPage()));
-    router.define(aliPayPage, handler: Handler(
-        handlerFunc: (BuildContext? context, Map<String, List<String>> params) => const AlipayPage()));
+    router.define(goodsAllCategoryPage, handler: Handler(
+        handlerFunc: (BuildContext? context, Map<String, List<String>> params) => const GoodsAllCategoryPage()));
+    router.define(goodsRoleCategoryPage, handler: Handler(
+        handlerFunc: (BuildContext? context, Map<String, List<String>> params) => const GoodsRoleCategoryPage()));
+    router.define(goodsSubCategoryPage, handler: Handler(
+        handlerFunc: (BuildContext? context, Map<String, List<String>> params) => const GoodsSubCategoryPage()));
+    ///由于需要真机调试暂时屏蔽
+    // router.define(weixinPayPage, handler: Handler(
+    //     handlerFunc: (BuildContext? context, Map<String, List<String>> params) => const WeXinPayPage()));
+    // router.define(aliPayPage, handler: Handler(
+    //     handlerFunc: (BuildContext? context, Map<String, List<String>> params) => const AlipayPage()));
 
 
 
