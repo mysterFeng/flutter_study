@@ -1,18 +1,21 @@
 import 'dart:async';
+import 'dart:convert';
 import 'dart:io';
 
+import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_cache_manager/flutter_cache_manager.dart';
+import 'package:flutter_study/wxpay/wxpay_model.dart';
 import 'package:uuid/uuid.dart';
 import 'package:wechat_kit/wechat_kit.dart';
 import 'package:wechat_kit_extension/wechat_kit_extension.dart';
 import 'package:image/image.dart' as image;
 import 'package:path/path.dart' as path;
 
-const String kWechatAppID = 'your wechat appId';
-const String kWechatUniversalLink = 'your wechat universal link'; // iOS 请配置
-const String kWechatAppSecret = 'your wechat appSecret';
+const String kWechatAppID = 'wx677ea03de2866612';
+const String kWechatUniversalLink = 'http://pdv3m9.natappfree.cc'; // iOS 请配置
+const String kWechatAppSecret = '72903fe2e8c8c36bcd1ab8f6ce678dcf';
 const String kWechatMiniAppID = 'your wechat miniAppId';
 
 class WeXinPayPage extends StatefulWidget {
@@ -24,12 +27,34 @@ class WeXinPayPage extends StatefulWidget {
 
 class _WeXinPayPageState extends State<WeXinPayPage> {
   late final StreamSubscription<WechatResp> _respSubs;
-
+  late final WxPayModel _wxPayModel;
   WechatAuthResp? _authResp;
   @override
   void initState() {
     super.initState();
     _respSubs = WechatKitPlatform.instance.respStream().listen(_listenResp);
+     _getData();
+  }
+
+  void _getData() async {
+
+    final dio = Dio();
+    final response = await dio.post('http://myverse.natapp1.cc/pay/v1/wxpay/trade/order',data: {
+      "userID": "65430271383d574fa4f0e222",
+      "device_info": "web",
+      "body": "我的宇宙-玩家充值",
+      "attach": "宇宙玩家",
+      "fee_type": "CNY",
+      "total_fee": 1,
+      "trade_type": "APP"
+    });
+    print(response.data.toString());
+    var res =  jsonEncode(response.data);
+    print("-------$res");
+    Map<String, dynamic> jsonMap = json.decode(res);
+
+    _wxPayModel = WxPayModel.fromJson(jsonMap['data']['data']);
+    print(_wxPayModel.appid);
   }
 
   void _listenResp(WechatResp resp) {
@@ -192,14 +217,22 @@ class _WeXinPayPageState extends State<WeXinPayPage> {
             title: Text('支付'),
             onTap: () {
               // 微信 Demo 例子：https://wxpay.wxutil.com/pub_v2/app/app_pay.php
+              print("-------${_wxPayModel.partnerid.toString()}  -------------");
+              print("-------${_wxPayModel.prepayid.toString()}  -------------");
+              print("-------${_wxPayModel.package.toString()}  -------------");
+              print("-------${_wxPayModel.noncestr.toString()}  -------------");
+              print("-------${_wxPayModel.timestamp.toString()}  -------------");
+              print("-------${_wxPayModel.sign.toString()}  -------------");
+
+
               WechatKitPlatform.instance.pay(
-                appId: kWechatAppID,
-                partnerId: '商户号',
-                prepayId: '预支付交易会话ID',
-                package: '扩展字段,暂填写固定值：Sign=WXPay',
-                nonceStr: '随机字符串, 随机字符串，不长于32位',
-                timeStamp: '时间戳：东八区，单位秒',
-                sign: '签名',
+                appId: _wxPayModel.appid.toString(),
+                partnerId: _wxPayModel.partnerid.toString(),
+                prepayId: _wxPayModel.prepayid.toString(),
+                package: _wxPayModel.package.toString(),
+                nonceStr: _wxPayModel.noncestr.toString(),
+                timeStamp: _wxPayModel.timestamp.toString(),
+                sign: _wxPayModel.sign.toString(),
               );
             },
           ),

@@ -4,7 +4,7 @@
 <dict>
 	<key>com.apple.developer.associated-domains</key>
 	<array>
-		<string>webcredentials:example.com</string>
+		<string>applinks:pdv3m9.natappfree.cc</string>
 	</array>
 </dict>
 </plist>

@@ -41,7 +41,7 @@
 			<string>weixin</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
-				<string>wx123456789</string>
+				<string>wx677ea03de2866612</string>
 			</array>
 		</dict>
 	</array>
@@ -50,6 +50,10 @@
 	<key>LSApplicationQueriesSchemes</key>
 	<array>
 		<string>alipay</string>
+		<string>weixin</string>
+		<string>wechat</string>
+		<string>weixinULAPI</string>
+		<string>weixinURLParamsAPI</string>
 	</array>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>

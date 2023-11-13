@@ -2,7 +2,7 @@ import 'package:fluro/fluro.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_study/alipay/alipay_page.dart';
 import 'package:flutter_study/dialog/dialog_demo_page.dart';
-import 'package:flutter_study/home/home_page.dart';
+import 'package:flutter_study/home_page.dart';
 import 'package:flutter_study/wxpay/weixin_pay_page.dart';
 
 import 'i_router.dart';

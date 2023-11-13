@@ -1,7 +1,9 @@
 import 'dart:async';
 import 'dart:convert';
 import 'package:alipay_kit/alipay_kit.dart';
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_study/alipay/alipay_model.dart';
 
 class AlipayPage extends StatefulWidget {
   const AlipayPage({super.key});
@@ -17,7 +19,7 @@ class _AlipayPageState extends State<AlipayPage> {
   static const String _ALIPAY_TARGETID = 'your alipay targetId'; // 登录
   static const String _ALIPAY_PRIVATEKEY =
       'your alipay rsa private key(pkcs1/pkcs8)'; // 支付/登录
-
+  late  AlipayModel _alipayModel;
 
 //声明参数用于回调使用
   late final StreamSubscription<AlipayResp> _paySubs; //用于支付
@@ -29,10 +31,32 @@ class _AlipayPageState extends State<AlipayPage> {
     super.initState();
     _paySubs = AlipayKitPlatform.instance.payResp().listen(_listenPay);
     _authSubs = AlipayKitPlatform.instance.authResp().listen(_listenAuth);
+
+   // AlipayKitPlatform.instance.setEnv(env: AlipayEnv.sandbox);
+
+    // http://myverse.natapp1.cc/pay/v1/alipay/apppay/newOrder
+   _getData();
+  }
+  _getData() async {
+    final dio = Dio();
+    final response = await dio.post('http://myverse.natapp1.cc/pay/v1/alipay/apppay/newOrder',data: {
+      "userID": "65430271383d574fa4f0e222",
+      "appID": "2021004122692918",
+      "suboject": "我的宇宙-玩家充值",
+      "totalAmount": 1,
+      "product_code": "123"
+    });
+    print(response.data.toString());
+    var res =  jsonEncode(response.data);
+    print("-------$res");
+    Map<String, dynamic> jsonMap = json.decode(res);
+
+    _alipayModel = AlipayModel.fromJson(jsonMap['data']);
   }
 
   void _listenPay(AlipayResp resp) {
     final String content = 'pay: ${resp.resultStatus} - ${resp.result}';
+    print("------------${content}");
     _showTips('支付', content);
   }
 
@@ -69,14 +93,14 @@ class _AlipayPageState extends State<AlipayPage> {
             onTap: () {
               final Map<String, dynamic> bizContent = <String, dynamic>{
                 'timeout_express': '30m',
-                'product_code': 'QUICK_MSECURITY_PAY',
-                'total_amount': '0.01',
-                'subject': '1',
+                'product_code': _alipayModel.productCode,
+                'total_amount': _alipayModel.totalAmount,
+                'subject': _alipayModel.suboject,
                 'body': '我是测试数据',
-                'out_trade_no': '123456789',
+                'out_trade_no': _alipayModel.outTradeNo,
               };
               final Map<String, dynamic> orderInfo = <String, dynamic>{
-                'app_id': _ALIPAY_APPID,
+                'app_id': _alipayModel.appId,
                 'biz_content': json.encode(bizContent),
                 'charset': 'utf-8',
                 'method': 'alipay.trade.app.pay',
@@ -90,7 +114,7 @@ class _AlipayPageState extends State<AlipayPage> {
               //       : UnsafeAlipayKitPlatform.SIGNTYPE_RSA,
               //   privateKey: _ALIPAY_PRIVATEKEY,
               // );
-              AlipayKitPlatform.instance.pay(orderInfo: orderInfo.toString());
+              AlipayKitPlatform.instance.pay(orderInfo: _alipayModel.orderstring.toString());
             },
           ),
           ListTile(
