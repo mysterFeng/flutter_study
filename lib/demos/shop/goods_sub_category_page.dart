@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_smart_dialog/flutter_smart_dialog.dart';
 import 'package:flutter_study/common/utils/common_utils.dart';
 import 'package:flutter_study/routers/fluro_navigator.dart';
 import 'package:gzx_dropdown_menu/gzx_dropdown_menu.dart';
@@ -31,7 +32,6 @@ class _GoodsSubCategoryPageState extends State<GoodsSubCategoryPage> {
 
   @override
   void initState() {
-
     super.initState();
   }
 
@@ -81,14 +81,11 @@ class _GoodsSubCategoryPageState extends State<GoodsSubCategoryPage> {
               controller: _dropdownMenuController,
               menus: [
                 GZXDropdownMenuBuilder(
-                    dropDownHeight: 80,
-                    dropDownWidget: Container()),
+                    dropDownHeight: 80, dropDownWidget: Container()),
                 GZXDropdownMenuBuilder(
-                    dropDownHeight: 80,
-                    dropDownWidget: Container()),
+                    dropDownHeight: 80, dropDownWidget: Container()),
                 GZXDropdownMenuBuilder(
-                    dropDownHeight: 80,
-                    dropDownWidget: Container()),
+                    dropDownHeight: 80, dropDownWidget: Container()),
               ],
             ),
           ],
@@ -124,41 +121,47 @@ class _GoodsSubCategoryPageState extends State<GoodsSubCategoryPage> {
   }
 
   Widget get _filterHeaderView {
-    return GZXDropDownHeader(
-      items: [
-        GZXDropDownHeaderItem(_headerStrings[0]),
-        GZXDropDownHeaderItem(_headerStrings[1]),
-        GZXDropDownHeaderItem(_headerStrings[2]),
-        GZXDropDownHeaderItem(_headerStrings[3],
-            iconData: Icons.filter, iconSize: 18),
-      ],
-      stackKey: _stackKey,
-      controller: _dropdownMenuController,
-      onItemTap: (index) {
-
-        if (index == 3) {
-          _dropdownMenuController.hide();
-
+    return
+      Container(
+      child: Builder(
+        builder: (context) {
+          return Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: [
+              Text("111"),
+              Text("222"),
+              Text("333"),
+              InkWell(
+                child: Text("444"),
+                onTap: () {
+                  _attachA(context);
+                },
+              ),
+            ],
+          );
         }
-      },
-//                height: 40,
-//                color: Colors.red,
-//                borderWidth: 1,
-//                borderColor: Color(0xFFeeede6),
-//                dividerHeight: 20,
-//                dividerColor: Color(0xFFeeede6),
-//                style: TextStyle(color: Color(0xFF666666), fontSize: 13),
-//                dropDownStyle: TextStyle(
-//                  fontSize: 13,
-//                  color: Theme
-//                      .of(context)
-//                      .primaryColor,
-//                ),
-//                iconSize: 20,
-//                iconColor: Color(0xFFafada7),
-//                iconDropDownColor: Theme.of(context).primaryColor,
+      ),
     );
   }
 
-
+  void _attachA(BuildContext context) {
+    SmartDialog.showAttach(
+      targetContext: context,
+      alignment: Alignment.bottomCenter,
+      highlightBuilder: (Offset targetOffset, Size targetSize) {
+        return Positioned(
+          child: Container(
+            height: targetOffset.dy + targetSize.height,
+            width: targetSize.width,
+            color: Colors.white,
+          ),
+        );
+      },
+      builder: (_) => Container(
+        color: Colors.red,
+        width: double.infinity,
+        height: 300,
+      ),
+    );
+  }
 }

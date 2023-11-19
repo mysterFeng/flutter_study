@@ -1,5 +1,10 @@
 // import 'package:event_bus/event_bus.dart';
 
+
+
+const double kmargin = 14.0;
+
+
 class Constant {
   //  static const baseUrl ='http://192.168.56.1:8080/hrlweibo/';
   static const baseUrl = 'http://175.27.193.33:8080/hrlweibo/';
