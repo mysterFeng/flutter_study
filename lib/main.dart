@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_smart_dialog/flutter_smart_dialog.dart';
 import 'package:flutter_study/routers/routers.dart';
 
 import 'home_page.dart';
@@ -23,6 +24,8 @@ class MyApp extends StatelessWidget {
       ),
       home: const MyHomePage(title: 'Flutter Demo Home Page'),
       onGenerateRoute: Routes.router.generator,
+       builder: FlutterSmartDialog.init(),
+      navigatorObservers: [FlutterSmartDialog.observer],
     );
   }
 }
