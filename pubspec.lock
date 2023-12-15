@@ -73,6 +73,14 @@ packages:
       url: "https://pub.flutter-io.cn"
     source: hosted
     version: "1.0.6"
+  custom_pointed_popup:
+    dependency: "direct main"
+    description:
+      name: custom_pointed_popup
+      sha256: "7241cf8922b36f750d8353439b8130cbbe6e7ddf6c3d4b8638f1b639942c17bb"
+      url: "https://pub.flutter-io.cn"
+    source: hosted
+    version: "0.0.4"
   decimal:
     dependency: transitive
     description:
