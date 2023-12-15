@@ -16,7 +16,10 @@ class _MyHomePageState extends State<MyHomePage> {
     '弹框dialog': Routes.dialogDemoPage,
     '微信支付': Routes.weixinPayPage,
     '支付宝支付': Routes.aliPayPage,
-    '商场首页':Routes.shopHomePage
+    '商场首页':Routes.shopHomePage,
+    '刷新':Routes.shopHomePage,
+    'webView':Routes.webView
+
   };
 
   @override

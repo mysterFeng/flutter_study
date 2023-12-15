@@ -78,7 +78,10 @@ class DialogDemoPage extends StatelessWidget {
                   }),
             ],
           ),
-          MyGradientButton(text: "列表滑动删除", onPressed: () {}),
+          MyGradientButton(text: "城市选择", onPressed: () {
+
+
+          }),
         ],
       ),
     );

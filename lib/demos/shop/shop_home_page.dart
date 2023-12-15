@@ -1,3 +1,4 @@
+import 'package:easy_refresh/easy_refresh.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:flutter_study/common/utils/common_utils.dart';
@@ -30,88 +31,98 @@ class _ShopHomePageState extends State<ShopHomePage>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Column(
-        children: [
-          MyNavigationBar(
-            color: Colors.white,
-            child: _searchBar,
-          ),
-          Expanded(
-              child: Padding(
-                padding: const EdgeInsets.all(12.0),
-                child: NestedScrollView(
-            headerSliverBuilder:
-                  (BuildContext context, bool innerBoxIsScrolled) {
-                return [
-                  SliverToBoxAdapter(
-                    child: _shopGridView,
-                  ),
-                  const SliverToBoxAdapter(
-                    child: Padding(
-                      padding: EdgeInsets.only(top: 20),
-                      child: Text(
-                        "分类",
-                        style: TextStyles.textBold14,
-                      ),
-                    ),
-                  ),
-                  SliverToBoxAdapter(
-                    child: _cateGridView,
-                  ),
-                  SliverToBoxAdapter(
-                    child: _hotGoodsGridView,
-                  ),
-                  SliverPersistentHeader(
-                    pinned: true,
-                    floating: true,
-                    delegate: MySliverPersistentHeader(
-                      minHeight: 40,
-                      maxHeight: 40,
-                      child: Container(
-                        color: Colors.white,
-                        child: TabBar(
-                            controller: _tabController,
-                            isScrollable: true,
-                            labelColor: Colors.black,
-                            labelPadding:
-                                const EdgeInsets.fromLTRB(0, 0, 20, 0),
-                            indicator: const UnderlineIndicator(
-                                strokeCap: StrokeCap.round,
-                                borderSide: BorderSide(
-                                  color: Colors.transparent,
-                                  width: 0.5,
-                                ),
-                                insets: EdgeInsets.only(bottom: 10)),
-                            tabs: _tabs.map<Tab>((String title) {
-                              return Tab(
-                                text: title,
-                              );
-                            }).toList()),
-                      ),
-                    ),
-                  )
-                ];
-            },
-            body: TabBarView(
-                controller: _tabController,
-                children: const [
-                  GoodsListPage(
-                    type: "0",
-                  ),
-                  GoodsListPage(
-                    type: "1",
-                  ),
-                  GoodsListPage(
-                    type: "2",
-                  ),
-                  GoodsListPage(
-                    type: "3",
-                  ),
-                ],
+      body: EasyRefresh(
+
+        onRefresh: (){
+          print("1111111");
+        },
+        onLoad: (){
+          print("2222");
+
+        },
+        child: Column(
+          children: [
+            MyNavigationBar(
+              color: Colors.white,
+              child: _searchBar,
             ),
-          ),
-              ))
-        ],
+            Expanded(
+                child: Padding(
+                  padding: const EdgeInsets.all(12.0),
+                  child: NestedScrollView(
+              headerSliverBuilder:
+                    (BuildContext context, bool innerBoxIsScrolled) {
+                  return [
+                    SliverToBoxAdapter(
+                      child: _shopGridView,
+                    ),
+                    const SliverToBoxAdapter(
+                      child: Padding(
+                        padding: EdgeInsets.only(top: 20),
+                        child: Text(
+                          "分类",
+                          style: TextStyles.textBold14,
+                        ),
+                      ),
+                    ),
+                    SliverToBoxAdapter(
+                      child: _cateGridView,
+                    ),
+                    SliverToBoxAdapter(
+                      child: _hotGoodsGridView,
+                    ),
+                    SliverPersistentHeader(
+                      pinned: true,
+                      floating: true,
+                      delegate: MySliverPersistentHeader(
+                        minHeight: 40,
+                        maxHeight: 40,
+                        child: Container(
+                          color: Colors.white,
+                          child: TabBar(
+                              controller: _tabController,
+                              isScrollable: true,
+                              labelColor: Colors.black,
+                              labelPadding:
+                                  const EdgeInsets.fromLTRB(0, 0, 20, 0),
+                              indicator: const UnderlineIndicator(
+                                  strokeCap: StrokeCap.round,
+                                  borderSide: BorderSide(
+                                    color: Colors.transparent,
+                                    width: 0.5,
+                                  ),
+                                  insets: EdgeInsets.only(bottom: 10)),
+                              tabs: _tabs.map<Tab>((String title) {
+                                return Tab(
+                                  text: title,
+                                );
+                              }).toList()),
+                        ),
+                      ),
+                    )
+                  ];
+              },
+              body: TabBarView(
+                  controller: _tabController,
+                  children: const [
+                    GoodsListPage(
+                      type: "0",
+                    ),
+                    GoodsListPage(
+                      type: "1",
+                    ),
+                    GoodsListPage(
+                      type: "2",
+                    ),
+                    GoodsListPage(
+                      type: "3",
+                    ),
+                  ],
+              ),
+            ),
+                ))
+          ],
+        ),
       ),
     );
   }
@@ -154,6 +165,7 @@ class _ShopHomePageState extends State<ShopHomePage>
     return Container(
       height: 186,
       child: GridView.builder(
+        physics: NeverScrollableScrollPhysics(),
           padding: const EdgeInsets.only(top: 16, bottom: 20),
           itemCount: 9,
           gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(

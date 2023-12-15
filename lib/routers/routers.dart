@@ -1,10 +1,12 @@
 import 'package:fluro/fluro.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_study/demos/refresh/refresh_demo_page.dart';
 import 'package:flutter_study/demos/shop/add_adress_page.dart';
 import 'package:flutter_study/demos/shop/goods_all_category_page.dart';
 import 'package:flutter_study/demos/shop/goods_list_page.dart';
 import 'package:flutter_study/demos/shop/goods_role_category_page.dart';
 import 'package:flutter_study/demos/shop/goods_sub_category_page.dart';
+import 'package:flutter_study/demos/webView/webView_demo_page.dart';
 import 'package:flutter_study/test/gzx_dropdown_menu_test_page.dart';
 import 'package:flutter_study/demos/shop/shop_Intro_page.dart';
 import 'package:flutter_study/demos/shop/shop_home_page.dart';
@@ -29,6 +31,9 @@ class Routes {
   static String goodsRoleCategoryPage = '/goodsRoleCategoryPage';
   static String gzxDropDownMenuTestPage = '/gzxDropDownMenuTestPage';
   static String addAddressPage = '/addAddressPage';
+  static String refreshDemoPage = '/refreshDemoPage';
+  static String webView = '/webView';
+
 
 
 
@@ -66,6 +71,11 @@ class Routes {
         handlerFunc: (BuildContext? context, Map<String, List<String>> params) => const GoodsSubCategoryPage()));
     router.define(addAddressPage, handler: Handler(
         handlerFunc: (BuildContext? context, Map<String, List<String>> params) =>  AddAddressPage()));
+
+    router.define(refreshDemoPage, handler: Handler(
+        handlerFunc: (BuildContext? context, Map<String, List<String>> params) =>  RefreshDemoPage()));
+    router.define(webView, handler: Handler(
+        handlerFunc: (BuildContext? context, Map<String, List<String>> params) =>  WebViewDemoPage()));
     // router.define(gzxDropDownMenuTestPage, handler: Handler(
     //     handlerFunc: (BuildContext? context, Map<String, List<String>> params) =>  GZXDropDownMenuTestPage()));
 

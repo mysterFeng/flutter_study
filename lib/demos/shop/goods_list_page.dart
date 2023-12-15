@@ -1,3 +1,4 @@
+import 'package:easy_refresh/easy_refresh.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 
@@ -15,6 +16,7 @@ class _GoodsListPageState extends State<GoodsListPage> {
   Color color = Colors.black;
   bool _loading = false;
   int pageIndex = 1;
+  int count = 10;
   ScrollController _scrollController = ScrollController();
 
   @override
@@ -53,23 +55,18 @@ class _GoodsListPageState extends State<GoodsListPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: LoadingContainer(
-        isLoading: _loading,
-        child: RefreshIndicator(
-          onRefresh: _handleRefresh,
-          child: MediaQuery.removePadding(
-              removeTop: true,
-              context: context,
-              child:MasonryGridView.count(
-                crossAxisCount: 2,
-                mainAxisSpacing: 10,
-                crossAxisSpacing: 10,
-                itemBuilder: (context, index) {
-                  return Container(color: Colors.grey,height: index % 2 == 0? 254:271,);
-                },
-              )),
-        ),
-      ),
+      body: MediaQuery.removePadding(
+          removeTop: true,
+          context: context,
+          child:MasonryGridView.count(
+            crossAxisCount: 2,
+            mainAxisSpacing: 10,
+            crossAxisSpacing: 10,
+            itemCount: count,
+            itemBuilder: (context, index) {
+              return Container(color: Colors.grey,height: index % 2 == 0? 254:271,);
+            },
+          )),
     );
   }
 }
